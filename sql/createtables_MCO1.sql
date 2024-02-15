@@ -40,11 +40,12 @@ CREATE TABLE appointments (
     EndTime DATETIME,
     app_type VARCHAR(20),
     is_Virtual ENUM('TRUE', 'FALSE', 'NOTAVAILABLE') DEFAULT 'NOTAVAILABLE',
-    PRIMARY KEY (apptid),
-    FOREIGN KEY (pxid) REFERENCES px(pxid),
-    FOREIGN KEY (clinicid) REFERENCES clinics(clinicid),
-    FOREIGN KEY (doctorid) REFERENCES doctors(doctorid)
+    PRIMARY KEY (apptid)
 );
 
+/*,
+    FOREIGN KEY (pxid) REFERENCES px(pxid),
+    FOREIGN KEY (clinicid) REFERENCES clinics(clinicid),
+    FOREIGN KEY (doctorid) REFERENCES doctors(doctorid)*/
 
 
