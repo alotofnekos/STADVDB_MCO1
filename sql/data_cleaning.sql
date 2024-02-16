@@ -15,3 +15,10 @@ SET age = -1
 WHERE age IS NULL OR age < -1;
 
 select * from px;
+
+/*clinics*/
+UPDATE clinics
+SET hospitalname = 'NA'
+WHERE hospitalname IS NULL;
+
+select * from clinics;
