@@ -116,3 +116,45 @@ CREATE INDEX idx_appointments_OLAP4 ON appointments (TimeQueued, app_type);
 #OLAP 4 Denorm
 # Not Applicable
 
+#OLAP 5
+SELECT
+    c.hospitalname,
+    COUNT(a.apptid) AS CompleteAppointmentsCount
+FROM
+    clinics c
+LEFT JOIN
+    appointments a ON c.clinicid = a.clinicid AND a.status = 'Complete'
+WHERE
+    c.City = "Makati"
+    AND c.hospitalname IS NOT NULL
+GROUP BY
+    c.hospitalname
+ORDER BY
+    CompleteAppointmentsCount DESC;
+#OLAP 5 Indexing
+CREATE INDEX idx_clinics_city ON clinics (City);
+#OLAP 5 Denorm
+CREATE TABLE denormalized_table_OLAP5 AS
+SELECT a.apptid, c.hospitalname, c.City,c.Province,c.RegionName
+FROM
+    clinics c
+LEFT JOIN
+    appointments a ON c.clinicid = a.clinicid AND a.status = 'Complete';
+    
+SELECT
+    hospitalname,
+    COUNT(apptid) AS CompleteAppointmentsCount
+FROM denormalized_table_OLAP5
+WHERE     
+	City = "Makati"
+    AND hospitalname IS NOT NULL
+GROUP BY
+    hospitalname
+ORDER BY
+    CompleteAppointmentsCount DESC;
+
+
+
+
+
+
