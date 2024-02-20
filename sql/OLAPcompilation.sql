@@ -84,3 +84,35 @@ CREATE INDEX idx_appointments_OLAP3 ON appointments (TimeQueued, is_Virtual);
 #dont forget to drop this index before OLAP4
 #OLAP 3 Denorm
 # Not Applicable
+
+#OLAP 4
+SELECT
+    CASE MONTH(TimeQueued)
+        WHEN 1 THEN 'January'
+        WHEN 2 THEN 'February'
+        WHEN 3 THEN 'March'
+        WHEN 4 THEN 'April'
+        WHEN 5 THEN 'May'
+        WHEN 6 THEN 'June'
+        WHEN 7 THEN 'July'
+        WHEN 8 THEN 'August'
+        WHEN 9 THEN 'September'
+        WHEN 10 THEN 'October'
+        WHEN 11 THEN 'November'
+        WHEN 12 THEN 'December'
+    END AS Month,
+    app_type,
+    COUNT(*) AS AppTypeCount
+FROM
+    appointments
+WHERE
+    YEAR(TimeQueued) = 2021
+GROUP BY
+    Month,
+    app_type;
+#OLAP 4 Index
+CREATE INDEX idx_appointments_OLAP4 ON appointments (TimeQueued, app_type);
+#dont forget to drop this index before OLAP5
+#OLAP 4 Denorm
+# Not Applicable
+
